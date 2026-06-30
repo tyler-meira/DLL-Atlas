@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dufferin Lawn Life Estimate Tool</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="pricingEditorPanel">
+    <details id="pricingEditorMenu">
+        <summary>Pricing Spreadsheet</summary>
+
+        <p class="editor-help">
+            Use this section if the pricing spreadsheet does not load automatically.
+        </p>
+
+        <div class="editor-actions">
+            <label for="importPricingFile" class="file-import-button">
+                Import Pricing Spreadsheet
+            </label>
+
+            <input id="importPricingFile" type="file" accept=".xlsx,.xls">
+        </div>
+
+        <p class="editor-note">
+            Imported pricing is saved in this browser.
+        </p>
+    </details>
+</div>
+
+<div id="quotePdfPanel">
+    <details class="quote-pdf-section">
+        <summary>Quote PDF Form</summary>
+
+        <p class="editor-help">
+            Import the quote PDF, enter customer details, then export the filled PDF.
+            Package fields fill automatically from the calculated prepaid prices before HST.
+        </p>
+
+        <label for="quotePdfFile">Import Quote PDF</label>
+        <input id="quotePdfFile" type="file" accept=".pdf">
+
+        <input id="quoteName" placeholder="Customer Name">
+        <input id="quotePhone" placeholder="Phone">
+        <input id="quoteEmail" placeholder="Email">
+
+        <div class="quote-lawn-area">
+            <strong>Lawn Area</strong>
+
+            <label>
+                <input type="radio" name="quoteLawnArea" value="whole" checked>
+                Whole Lawn
+            </label>
+
+            <label>
+                <input type="radio" name="quoteLawnArea" value="front">
+                Front Lawn
+            </label>
+
+            <label>
+                <input type="radio" name="quoteLawnArea" value="back">
+                Back Lawn
+            </label>
+        </div>
+
+        <select id="quoteProgram">
+            <option value="all">Fill all package prices</option>
+        </select>
+
+        <button id="exportQuotePdfBtn">Export Filled Quote PDF</button>
+    </details>
+</div>
+
+<div id="panel">
+    <div class="logo-container">
+        <img src="logo.jpg" alt="Dufferin Lawn Life" class="dll-logo">
+    </div>
+
+    <input id="address" placeholder="Enter Property Address">
+    <button id="searchBtn">Find Property</button>
+
+    <div id="status">Enter an Ontario property address.</div>
+
+    <label class="marker-toggle">
+        <input type="checkbox" id="showAddressMarker" checked>
+        Show Property Marker
+    </label>
+
+    <hr>
+
+    <div class="result">
+        <strong>Measured Area:</strong>
+        <span id="area">0</span> sq ft
+    </div>
+
+    <div class="result">
+        <label for="additionalSqFt"><strong>Additional Sq Ft:</strong></label>
+        <input id="additionalSqFt" type="number" min="0" step="1" value="0">
+    </div>
+
+    <div class="result">
+        <strong>Calculated Area:</strong>
+        <span id="calculatedArea">0</span> sq ft
+    </div>
+
+    <div class="result">
+        <strong>Pricing Tier:</strong>
+        <span id="pricingTier">0</span> sq ft
+    </div>
+
+    <div class="result">
+        <strong>Package Pricing:</strong>
+
+        <div class="discount-selector" aria-label="Discount selector">
+            <strong>Discount:</strong>
+            <label><input type="radio" name="discountRate" value="0.05" checked> 5%</label>
+            <label><input type="radio" name="discountRate" value="0.07"> 7%</label>
+            <label><input type="radio" name="discountRate" value="0.10"> 10%</label>
+        </div>
+
+        <div id="pricing">Find a property and draw the service area.</div>
+    </div>
+
+    <div class="internal-note">
+        Internal office estimate only. Pricing rounds up by 500 sq ft.
+    </div>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

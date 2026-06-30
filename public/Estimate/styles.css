@@ -1,0 +1,494 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+#panel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+
+    width: 400px;
+    max-width: calc(100vw - 30px);
+    max-height: 92vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 8px;
+
+    background: #006b2d;
+    color: white;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.dll-logo {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Top left panels */
+#pricingEditorPanel {
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    z-index: 1000;
+
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    max-height: 92vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+
+    background: #006b2d;
+    color: white;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+}
+
+#quotePdfPanel {
+    position: absolute;
+    top: 10px;
+    left: 400px;
+    z-index: 1000;
+
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    max-height: 92vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+
+    background: #006b2d;
+    color: white;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+}
+
+#pricingEditorMenu summary,
+.quote-pdf-section summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.editor-help,
+.editor-note {
+    margin-top: 8px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.editor-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.editor-actions button,
+.file-import-button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 4px;
+    background: transparent;
+    color: white;
+    font: 13px Arial, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.editor-actions button:hover,
+.file-import-button:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+#importPricingFile {
+    display: none;
+}
+
+.program-editor {
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .12);
+}
+
+.program-editor h4 {
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+.rule-editor {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, .25);
+}
+
+.rule-editor strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.editor-field label {
+    display: block;
+    color: white;
+    font-size: 11px;
+}
+
+.editor-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px;
+    margin-top: 3px;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    color: #222;
+}
+
+#panel input,
+#panel button,
+#panel select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    margin-top: 6px;
+}
+
+#panel input,
+#panel select {
+    background: white;
+    color: #222;
+    border: none;
+    border-radius: 4px;
+}
+
+#panel button {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#panel button:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+#panel button:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.result {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+#additionalSqFt {
+    margin-top: 6px;
+}
+
+#status {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    background: white;
+    color: #006b2d;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+#status.ok {
+    background: #e8f5e9;
+    color: #1b5e20;
+}
+
+#status.warn {
+    background: #fff8e1;
+    color: #8a5a00;
+}
+
+#status.error {
+    background: #ffebee;
+    color: #b71c1c;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, .45);
+    margin: 16px 0;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 11px;
+    table-layout: fixed;
+}
+
+.pricing-table th,
+.pricing-table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.pricing-table th {
+    background: #f5f5f5;
+    color: #222;
+}
+
+.price-band {
+    margin-top: 8px;
+    color: #333;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.discount-selector {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .12);
+    color: white;
+    font-size: 13px;
+}
+
+.discount-selector label {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.discount-selector input {
+    width: auto !important;
+    margin-top: 0 !important;
+}
+
+#pricing {
+    background: white;
+    color: #222;
+    border-radius: 6px;
+    padding: 14px;
+    margin-top: 10px;
+    overflow-x: hidden;
+}
+
+.discount {
+    display: block;
+    margin-top: 3px;
+    color: #1b5e20;
+    font-size: 11px;
+}
+
+.missing-price {
+    color: #b71c1c;
+    font-size: 12px;
+}
+
+.internal-note {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+/* Quote PDF panel */
+.quote-pdf-section summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.quote-pdf-section label {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#quotePdfPanel input,
+#quotePdfPanel select,
+#quotePdfPanel button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+#quotePdfPanel input,
+#quotePdfPanel select {
+    border: none;
+    background: white;
+    color: #222;
+}
+
+#quotePdfPanel button {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#quotePdfPanel button:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+.quote-lawn-area {
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .12);
+}
+
+.quote-lawn-area strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.quote-lawn-area label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+#quotePdfPanel .quote-lawn-area input[type="radio"] {
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Leaflet edit handle styling */
+.leaflet-marker-icon.leaflet-div-icon.leaflet-editing-icon {
+    width: 7px !important;
+    height: 7px !important;
+    margin-left: -4px !important;
+    margin-top: -4px !important;
+
+    background: #006b2d !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 50% !important;
+}
+
+#panel input[type="checkbox"],
+#panel input[type="radio"] {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.marker-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.marker-toggle input {
+    flex: 0 0 auto;
+}
+
+/* Medium screens */
+@media (max-width: 1200px) {
+    #pricingEditorPanel {
+        left: 10px;
+        width: 280px;
+    }
+
+    #quotePdfPanel {
+        left: 310px;
+        width: 280px;
+    }
+
+    #panel {
+        width: 330px;
+    }
+
+    .pricing-table {
+        font-size: 10px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto;
+    }
+
+    #pricingEditorPanel,
+    #quotePdfPanel,
+    #panel {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: calc(100vw - 20px);
+        max-width: none;
+        margin: 10px;
+    }
+
+    #map {
+        height: 70vh;
+    }
+}
