@@ -1,4 +1,9 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import StatCard from '../components/Dashboard/StatCard';
+import { createClient } from '@/lib/supabase/client';
 
 import {
   Calculator,
@@ -9,6 +14,46 @@ import {
 } from 'lucide-react';
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const supabase = createClient();
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (!isMounted) {
+          return;
+        }
+
+        if (!data.session) {
+          router.replace('/login');
+          return;
+        }
+
+        setIsAllowed(true);
+      })
+      .catch(() => {
+        if (isMounted) {
+          router.replace('/login');
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [router]);
+
+  if (!isAllowed) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#17884b] px-4">
+        <p className="text-sm font-medium text-white">Checking access...</p>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gray-100 p-8">
       <section className="mx-auto max-w-6xl">
